@@ -24,3 +24,27 @@ def post_create(request):
     }
     return render(request, "blogapp/post_create.html", context )
     
+def post_detail(request, slug):
+    post = Post.objects.get(slug = slug)
+    return render(request, "blogapp/post_detail.html", {"post": post})
+
+def post_update(request, slug):
+    post = Post.objects.get(slug = slug)
+    form = PostForm(request.POST or None, request.FILES or None, instance=post)
+    if form.is_valid():
+        form.save()
+        return redirect("blogapp:list")
+
+    context = {
+        "post" : post,
+        "form": form
+
+    }
+    return render(request, "blogapp/post_update.html", context)
+
+def post_delete(request, slug):
+    post = Post.objects.get(slug = slug)
+    if request.method == "POST":
+        post.delete()
+        return redirect("blogapp:list")
+    return render(request, "blogapp/post_delete.html", {"post" : post})

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p>Are you sure delete {{post}}?</p>
+<form action="" method="POST">
+    {% csrf_token %}
+
+    <a href="{% url 'blogapp:list' %}">Cancel</a>
+    <button type="submit">Yes</button>
+</form>
+{% endblock content %}
