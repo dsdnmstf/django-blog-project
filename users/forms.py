@@ -6,7 +6,7 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField()
     class Meta:
         model = User
-        fields = ("username", "email", )
+        fields = ("username", "email" )
 
     def clean_email(self):
         email = self.cleaned_data["email"]

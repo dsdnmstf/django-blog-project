@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "blogapp",
     "crispy_forms",
-    "crispy_bootstrap5",
     "users",
 ]
 
@@ -145,9 +144,9 @@ MEDIA_ROOT = BASE_DIR / "media_root"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
-CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 LOGIN_REDIRECT_URL = "blogapp:list"
 

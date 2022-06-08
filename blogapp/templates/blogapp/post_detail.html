@@ -1,47 +1,51 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 
-    <div class="container card" style="width: 40rem;">
-        <img src="{{ post.image.url }}" class="card-img-top" alt="post_image">
-        <div class="card-body">
-            <h2 class="card-title">{{ post.title }}</h2>
-            <hr>
+<div class="container d-flex justify-content-center mt-5">
+  <div class="container detail-container p-4">
+    <div>
+      <h2 class="mb-3 text-center">Post Detail</h2>
+      <br>
+    </div>
+          {% if post.image %}
+          <img src="{{ post.image.url }}" class="card-img-top w-100" alt="image">
 
-            <div>
-                <span><i class="far fa-comment-alt ml-2"></i></i> {{ post.comment_count }}</span>
-                <span><i class="fas fa-eye ml-2"></i> {{ post.view_count }}</span>
-                <span><i class="far fa-heart ml-2"></i> {{ post.like_count }}</span>
-                <span class="float-right"> <small>Posted {{ post.publish_date|timesince }} ago.</small> </span>
-            </div>
-            <hr>
+          {% else %}
+          
+          <img src="media/django.png" class="card-img-top w-100  " alt="image">
+        {% endif %}
 
-            <p class="card-text">{{ post.content }}.</p>
-            <hr>
 
-            <div>
+    <div class="card-body">
+      <h5 class="card-title">{{post.title}}</h5>
+      <p class="card-text" >{{post.content}}</p>
+      <div>
+          <span><i class="far fa-comment-alt mx-1"></i></i> {{ post.comment_count }}</span>
+                <span><i class="fas fa-eye mx-1"></i> {{ post.view_count }}</span>
+                <span><i class="far fa-heart mx-1"></i> {{ post.like_count }}</span>
+                <span class="float-right mx-2"> <small>Posted {{ post.publish_date | timesince }} ago.</small> </span>
+      </div>
+      <hr>
+      <div>
             <h4>Enjoy this post? Give it a LIKE!!</h4>
-            </div>
-
-            <div>
-            <form action="{% url 'blogapp:like' post.slug %}" method="POST">
-
+      </div>
+      <div>
+          <form action="{% url 'blogapp:like' post.slug %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="post">
                 <input type="hidden" name="user">
-
-
-                <button type="submit"><i class="far fa-heart fa-lg"></i></button>
-                {{post.like_count }}
-            </form>
-            <hr>
-            <!-- {% if user.is_authenticated %} -->
-            <h4>Leave a comment below</h4>
-            <form action="" method="POST">
+                
+                <button class="btn btn-outline-danger" type="submit">Like it!</button>               
+          </form>
+          <hr>
+          <h4>Leave a comment below</h4>
+          <form action="" method="POST">
                 {% csrf_token %}
-                {{form|crispy}}
-                <button class="btn btn-secondary btn-sm mt-1 mb-1">SEND</button>
+                {{ form | crispy }}
+                <button class="btn btn-info btn-sm mt-2">SEND</button>
             </form>
             <hr>
             <h4>Comments</h4>
@@ -53,38 +57,28 @@
                 </p>
                 <p>
                     {{ comment.content }}
-
                 </p>
             </div>
             <hr>
             {% endfor %}
-            <!-- {% else %} -->
-            <!-- <a href="#" class="btn btn-primary btn-block">Login to comment</a> -->
-            <!-- {% endif %} -->
+
+
+      </div>
+            
+      <div class="text-center">
+      {% if user.id == post.author.id %}
+        <a href="{% url 'blogapp:update' post.slug %}" class="btn btn-info m-2 w-25">Edit</a>
+        <a href="{% url 'blogapp:delete' post.slug %}" class="btn btn-danger m-2 w-25">Delete</a>
+      {% else %}      
+        <a href="{% url 'blogapp:list' %}" class="btn w-50 btn-danger m-2">Back</a>
+      </div>
+      
+      {% endif %}
         
-        </div>
-
-        </div>
-
-        <div class="m-3">
-        {% if user.id == post.author.id %}
-        <a href="{% url 'blogapp:update' post.slug %}" class="btn btn-info">Edit</a>
-        <a href="{% url 'blogapp:delete' post.slug %}" class="btn btn-danger">Delete</a>
-        {% endif %}
+      
     </div>
-    <!-- <div>
-        
-        {% for i in kitap  %}
-        
-        {% if i.user == user %}
-        <h1>{{i.content}}</h1>       
-        {% endif %}
-               
-        {% endfor %}
-     
-    </div> -->
-    <!-- <div>
-        <h3>{{like_qs}}</h3>
-    </div> -->
+  </div>
+</div>
 
+    
 {% endblock content %}

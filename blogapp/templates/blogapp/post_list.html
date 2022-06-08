@@ -1,33 +1,61 @@
-{% extends 'base.html' %}
+{%extends 'base.html' %} {% load static %} {% block content %}
+<div class="mt-5 mb-3">
+  <div>
+    <h1 class="text-center pt-4">Blog App</h1>
+  </div>
+  <br />
+  <div class="card-container">
+    <div
+      class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center"
+    >
+      {% for post in posts %}
+      <div class="col d-flex justify-content-center">
+        <div class="card p-2">
+          {% if post.image %}
+          <img
+            src="{{ post.image.url }}"
+            class="card-img-top w-100"
+            style="height: 9rem"
+            alt="image"
+          />
+          {% else %}
+          <img
+            src="media/django.png"
+            class="card-img-top w-100"
+            style="height: 9rem"
+            alt="image"
+          />
+          {% endif %}
 
-
-{% block content %}
-<h1 style="text-align: center;">Clarusway Blog</h1>
-<div class="row mt-5" >
-    {% for post in posts %}
-    <div class="col-4">
-
-        <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem; height: 25rem; ">
-            <img src="{{ post.image.url }}" class="card-img-top" alt="post_image" style="width:15rem; height: 11rem; align-self:center;">
-            <hr>
-            <div class="card-body">
-                <h5 class="card-title"><a href="{% url 'blogapp:detail' post.slug %}">{{post.title}}</a></h5>
-                <p class="card-text">{{post.content|truncatechars:20}}</p>
-                
-                <p class="">
-                     <span><i class="far fa-comment-alt ml-2"></i> {{ post.comment_count }}</span>
-                    <span><i class="fas fa-eye ml-2"></i> {{ post.view_count }}</span>
-                    <span><i class="far fa-heart ml-2"></i> {{ post.like_count }}</span>
-                <p class="card-text"><small>
-                        Posted {{ post.publish_date|timesince }} ago.
-                    </small>
-                </p>
-
-                </p>
-            </div>
+          <div class="card-body">
+            <h5 class="card-title">{{post.title}}</h5>
+            <p class="card-text">{{post.content | truncatechars:20}}</p>
+            <p>
+              <span
+                ><i class="far fa-comment-alt mx-1"></i>{{
+                post.comment_count}}</span
+              >
+              <span><i class="fas fa-eye mx-1"></i>{{ post.view_count }}</span>
+              <span
+                ><i class="far fa-heart mx-1"></i>{{ post.like_count }}</span
+              >
+            </p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted"
+              >Posted {{ post.publish_date | timesince }} ago.
+            </small>
+          </div>
+          <div class="text-center p-2">
+            <a href="{% url 'blogapp:detail' post.slug %}">
+              <button type="button" class="btn btn-info w-50">Details</button>
+            </a>
+          </div>
         </div>
+      </div>
+      {% endfor %}
     </div>
-
-    {% endfor %}
+  </div>
 </div>
+
 {% endblock content %}

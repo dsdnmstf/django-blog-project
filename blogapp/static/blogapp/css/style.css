@@ -1,0 +1,71 @@
+body {    
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    background-image: linear-gradient(to left, rgb(208, 208, 211),rgba(108, 174, 250, 0.397));
+}
+
+
+/*! --------------------NAVBAR--------------------------*/
+
+.navbar {
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index: 1;
+}
+.collapse {
+  font-size:1.5rem;
+}
+
+
+
+/*! ------------------CARD-CONTAİNER-----------------------*/
+/* .card-container {
+  display: flex;
+  justify-content:center;
+} */
+
+
+/* .row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.card {
+    width:18rem;
+    height:25rem;
+    box-shadow: 10px 10px 10px rgb(83, 79, 79);
+    border-radius:10px;    
+}
+
+.newblog-container {
+  background-color:rgba(154, 207, 207, 0.842);
+  max-width : 40rem;
+  margin: 2rem ;
+  padding: 2rem;
+  box-shadow: 10px 10px 20px rgb(75, 70, 70);
+  border-radius:20px;
+}
+
+.detail-container{
+  background-color:rgba(213, 247, 247, 0.842);
+  max-width : 40rem;
+  margin: 2rem ;
+  padding: 2rem;
+  box-shadow: 10px 10px 20px rgb(75, 70, 70);
+  border-radius:20px;
+}
+
+.account-img {
+    height: 110px;
+    width: 110px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+}
+
+.account-heading {
+    font-size: 2.5rem;
+}
